@@ -8,19 +8,24 @@ import { Product } from '../models/product';
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = environment.apiUrl + '/cart';
+  private apiCartUrl = environment.apiUrl + '/cart';
+  private apiCheckOutUrl = environment.apiUrl + '/checkout';
 
   constructor(private httpClient: HttpClient) {}
 
   addToCart(product: Product): Observable<Product> {
-    return this.httpClient.post<Product>(this.apiUrl, product);
+    return this.httpClient.post<Product>(this.apiCartUrl, product);
   }
 
   getCartItems(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.apiUrl);
+    return this.httpClient.get<Product[]>(this.apiCartUrl);
   }
 
   clearCart(): Observable<void> {
-    return this.httpClient.delete<void>(this.apiUrl);
+    return this.httpClient.delete<void>(this.apiCartUrl);
+  }
+
+  checkOut(products: Product[]): Observable<void> {
+    return this.httpClient.post<void>(this.apiCheckOutUrl, products);
   }
 }

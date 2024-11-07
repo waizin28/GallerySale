@@ -31,4 +31,8 @@ export class CartViewComponent implements OnInit {
   clearCart(): void {
     this.cartService.clearCart().subscribe();
   }
+
+  checkOut(): void {
+    this.cartService.checkOut(this.cartItems).subscribe();
+  }
 }
